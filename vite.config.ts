@@ -4,10 +4,9 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
+// Updated: Force GitHub Pages deployment with hardcoded base path
 export default defineConfig(({ mode }) => {
   // Always use the repo name as base for GitHub Pages
-  // For local development with Lovable, this still works because
-  // Lovable's dev server handles the routing
   const base = "/retro-tunes-player/";
   
   return {
