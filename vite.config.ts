@@ -4,6 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
+// Sync trigger: 2025-12-06T12:45:00Z
 // Updated: Force GitHub Pages deployment with hardcoded base path
 export default defineConfig(({ mode }) => {
   // Always use the repo name as base for GitHub Pages
