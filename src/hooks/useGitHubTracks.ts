@@ -29,24 +29,32 @@ function getRepoInfo(): { owner: string; repo: string } | null {
   const hostname = window.location.hostname;
   const pathname = window.location.pathname;
   
-  // GitHub Pages format: username.github.io/repo-name
+  // GitHub Pages format: username.github.io or username.github.io/repo-name
   if (hostname.endsWith('.github.io')) {
     const owner = hostname.replace('.github.io', '');
     const pathParts = pathname.split('/').filter(Boolean);
-    const repo = pathParts[0] || owner; // If no path, repo name equals username (user site)
     
-    return { owner, repo };
+    // For project sites: username.github.io/repo-name/...
+    // For user sites: username.github.io (repo is username.github.io)
+    if (pathParts.length > 0) {
+      // Project site - first path segment is repo name
+      return { owner, repo: pathParts[0] };
+    } else {
+      // User site - repo name is "username.github.io"
+      return { owner, repo: `${owner}.github.io` };
+    }
   }
   
-  // For local development, try to use a demo/fallback
-  // You can set these in localStorage for testing
+  // For local development or custom domains
+  // Check for localStorage config first
   const devOwner = localStorage.getItem('dev-github-owner');
   const devRepo = localStorage.getItem('dev-github-repo');
   
   if (devOwner && devRepo) {
     return { owner: devOwner, repo: devRepo };
   }
-  
+
+  // For Lovable preview or other hosting - show helpful message
   return null;
 }
 
@@ -98,8 +106,14 @@ export function useGitHubTracks() {
     const repoInfo = getRepoInfo();
     
     if (!repoInfo) {
-      // Try loading from local /music folder for development
-      setError('Could not detect GitHub repository. Deploy to GitHub Pages or set dev-github-owner and dev-github-repo in localStorage.');
+      // Not on GitHub Pages - show setup instructions
+      const cached = loadCachedTracks();
+      if (cached && cached.length > 0) {
+        setTracks(cached);
+        setError(null);
+      } else {
+        setError('Deploy to GitHub Pages to auto-detect music. Or set dev-github-owner and dev-github-repo in localStorage for testing.');
+      }
       setLoading(false);
       return;
     }
