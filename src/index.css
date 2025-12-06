@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Using Inter as a clean, modern system-like font (SF Pro is Apple proprietary) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+/* Font is loaded via index.html for better performance */
 
 @layer base {
   :root {
