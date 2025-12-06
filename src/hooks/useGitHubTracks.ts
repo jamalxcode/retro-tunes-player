@@ -74,6 +74,16 @@ function getRepoInfo(): { owner: string; repo: string } | null {
   const hostname = window.location.hostname;
   const pathname = window.location.pathname;
   
+  // Custom domain mapping - add your custom domain here
+  const customDomainMappings: Record<string, { owner: string; repo: string }> = {
+    'music.sala.company': { owner: 'jamalxcode', repo: 'retro-tunes-player' },
+  };
+  
+  // Check for custom domain mapping first
+  if (customDomainMappings[hostname]) {
+    return customDomainMappings[hostname];
+  }
+  
   // GitHub Pages format: username.github.io or username.github.io/repo-name
   if (hostname.endsWith('.github.io')) {
     const owner = hostname.replace('.github.io', '');
