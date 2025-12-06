@@ -102,13 +102,6 @@ function getRepoInfo(): { owner: string; repo: string } | null {
   return null;
 }
 
-// Check if we're in demo mode
-function isDemoMode(): boolean {
-  const hostname = window.location.hostname;
-  const hasLocalConfig = localStorage.getItem('dev-github-owner') && localStorage.getItem('dev-github-repo');
-  
-  return !hostname.endsWith('.github.io') && !hasLocalConfig;
-}
 
 export function useGitHubTracks() {
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -175,7 +168,8 @@ export function useGitHubTracks() {
     }
 
     const { owner, repo } = repoInfo;
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/music`;
+    // Encode repo name in case it contains special characters
+    const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/music`;
 
     try {
       const response = await fetch(apiUrl, {
