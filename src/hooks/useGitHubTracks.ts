@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Track, GitHubFile } from '@/types/track';
 
-const CACHE_KEY = 'ipod-tracks-cache';
-const CACHE_TIMESTAMP_KEY = 'ipod-tracks-timestamp';
+// Cache keys include hostname to prevent collision across different deployments
+const getCacheKey = () => `ipod-tracks-${window.location.hostname}${window.location.pathname.split('/')[1] || ''}`;
+const getTimestampKey = () => `${getCacheKey()}-timestamp`;
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 function parseTrackInfo(filename: string): { artist: string; title: string } {
@@ -65,8 +66,9 @@ export function useGitHubTracks() {
 
   const loadCachedTracks = useCallback((): Track[] | null => {
     try {
-      const cached = localStorage.getItem(CACHE_KEY);
-      const timestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+      const cacheKey = getCacheKey();
+      const cached = localStorage.getItem(cacheKey);
+      const timestamp = localStorage.getItem(getTimestampKey());
       
       if (cached && timestamp) {
         const age = Date.now() - parseInt(timestamp, 10);
@@ -80,10 +82,10 @@ export function useGitHubTracks() {
     return null;
   }, []);
 
-  const cacheTracks = useCallback((tracks: Track[]) => {
+  const cacheTracks = useCallback((newTracks: Track[]) => {
     try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify(tracks));
-      localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+      localStorage.setItem(getCacheKey(), JSON.stringify(newTracks));
+      localStorage.setItem(getTimestampKey(), Date.now().toString());
     } catch (e) {
       console.warn('Failed to cache tracks:', e);
     }
