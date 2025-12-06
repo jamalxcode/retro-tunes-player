@@ -43,6 +43,8 @@ export function useAudioPlayer(tracks: Track[]) {
   useEffect(() => {
     audioRef.current = new Audio();
     audioRef.current.volume = state.volume;
+    // Enable CORS for GitHub raw files
+    audioRef.current.crossOrigin = 'anonymous';
 
     const audio = audioRef.current;
 
@@ -114,9 +116,24 @@ export function useAudioPlayer(tracks: Track[]) {
     const handleEnded = () => {
       if (state.loop) {
         audio.currentTime = 0;
-        audio.play();
+        audio.play().catch(console.error);
       } else {
-        nextTrack();
+        // Auto-advance to next track
+        const nextIdx = state.shuffle 
+          ? Math.floor(Math.random() * tracks.length)
+          : (state.currentIndex + 1) % tracks.length;
+        
+        if (tracks[nextIdx] && tracks.length > 0) {
+          audio.src = tracks[nextIdx].url;
+          audio.currentTime = 0;
+          setState((s) => ({
+            ...s,
+            currentTrack: tracks[nextIdx],
+            currentIndex: nextIdx,
+            currentTime: 0,
+          }));
+          audio.play().catch(console.error);
+        }
       }
     };
 
