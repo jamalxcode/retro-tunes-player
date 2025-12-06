@@ -12,13 +12,8 @@ export const IPodPlayer: React.FC = () => {
 
   return (
     <div className="ipod-body w-[320px] rounded-[2rem] p-6 relative">
-      {/* iPod branding */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 text-muted-foreground/40 text-[10px] font-medium tracking-widest">
-        iPod
-      </div>
-
       {/* Screen area */}
-      <div className="mt-4 relative">
+      <div className="mt-2 relative">
         <Screen
           track={player.currentTrack}
           currentTime={player.currentTime}
