@@ -89,15 +89,18 @@ export function useAudioPlayer(tracks: Track[]) {
         setState((s) => ({ ...s, currentTrack: track, currentIndex: savedIndex }));
         audioRef.current.src = track.url;
         
-        // Wait for audio to be loaded before seeking
+        // Wait for audio to be loaded before seeking (one-time listener)
         const savedTime = state.currentTime;
-        const handleCanPlay = () => {
-          if (audioRef.current && savedTime > 0) {
-            audioRef.current.currentTime = Math.min(savedTime, audioRef.current.duration || savedTime);
-          }
-          audioRef.current?.removeEventListener('canplay', handleCanPlay);
-        };
-        audioRef.current.addEventListener('canplay', handleCanPlay);
+        if (savedTime > 0) {
+          const audio = audioRef.current;
+          const handleCanPlay = () => {
+            if (audio) {
+              audio.currentTime = Math.min(savedTime, audio.duration || savedTime);
+              audio.removeEventListener('canplay', handleCanPlay);
+            }
+          };
+          audio.addEventListener('canplay', handleCanPlay, { once: true });
+        }
       }
     }
   }, [tracks]);

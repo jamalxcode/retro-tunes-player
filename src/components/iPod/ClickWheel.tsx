@@ -33,6 +33,7 @@ export const ClickWheel: React.FC<ClickWheelProps> = ({
       <div className="click-wheel w-[200px] h-[200px] rounded-full relative flex items-center justify-center">
         {/* Menu button - top */}
         <button 
+          type="button"
           onClick={onMenu}
           className="wheel-button absolute top-3 left-1/2 -translate-x-1/2 p-2 text-muted-foreground hover:text-foreground"
           aria-label="Menu"
@@ -42,6 +43,7 @@ export const ClickWheel: React.FC<ClickWheelProps> = ({
 
         {/* Previous button - left */}
         <button 
+          type="button"
           onClick={onPrev}
           className="wheel-button absolute left-3 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-foreground"
           aria-label="Previous track"
@@ -51,6 +53,7 @@ export const ClickWheel: React.FC<ClickWheelProps> = ({
 
         {/* Next button - right */}
         <button 
+          type="button"
           onClick={onNext}
           className="wheel-button absolute right-3 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-foreground"
           aria-label="Next track"
@@ -60,6 +63,7 @@ export const ClickWheel: React.FC<ClickWheelProps> = ({
 
         {/* Play/Pause button - bottom */}
         <button 
+          type="button"
           onClick={onTogglePlay}
           className="wheel-button absolute bottom-3 left-1/2 -translate-x-1/2 p-2 text-muted-foreground hover:text-foreground"
           aria-label={isPlaying ? 'Pause' : 'Play'}
@@ -73,6 +77,7 @@ export const ClickWheel: React.FC<ClickWheelProps> = ({
 
         {/* Center select button */}
         <button 
+          type="button"
           onClick={onTogglePlay}
           className="wheel-center w-[72px] h-[72px] rounded-full wheel-button flex items-center justify-center"
           aria-label="Select"
