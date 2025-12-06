@@ -5,9 +5,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // For GitHub Pages: set base to repo name in production
-  // This is automatically handled - GitHub Pages serves from the repo path
-  base: "./",
+  // For GitHub Pages: use repo name in production for proper asset loading
+  // GitHub Pages serves from /repo-name/ subdirectory
+  base: mode === 'production' ? '/retro-tunes-player/' : '/',
   server: {
     host: "::",
     port: 8080,
