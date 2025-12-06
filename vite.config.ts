@@ -4,11 +4,10 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-// Sync trigger: 2025-12-06T12:45:00Z
-// Updated: Force GitHub Pages deployment with hardcoded base path
+// Updated: Use root path for custom domain (music.sala.company)
 export default defineConfig(({ mode }) => {
-  // Always use the repo name as base for GitHub Pages
-  const base = "/retro-tunes-player/";
+  // Use root base path since we're on a custom domain, not a subdirectory
+  const base = "/";
   
   return {
     base,
