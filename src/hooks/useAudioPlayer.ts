@@ -88,7 +88,16 @@ export function useAudioPlayer(tracks: Track[]) {
       if (track && audioRef.current) {
         setState((s) => ({ ...s, currentTrack: track, currentIndex: savedIndex }));
         audioRef.current.src = track.url;
-        audioRef.current.currentTime = state.currentTime;
+        
+        // Wait for audio to be loaded before seeking
+        const savedTime = state.currentTime;
+        const handleCanPlay = () => {
+          if (audioRef.current && savedTime > 0) {
+            audioRef.current.currentTime = Math.min(savedTime, audioRef.current.duration || savedTime);
+          }
+          audioRef.current?.removeEventListener('canplay', handleCanPlay);
+        };
+        audioRef.current.addEventListener('canplay', handleCanPlay);
       }
     }
   }, [tracks]);
