@@ -1,73 +1,66 @@
-# Welcome to your Lovable project
+# iPod Classic MP3 Player
 
-## Project info
+A web-based MP3 player styled like a 2007 iPod Classic. Host your music on GitHub Pages with zero configuration.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![iPod Classic Style](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/IPod_classic.png/150px-IPod_classic.png)
 
-## How can I edit this code?
+## Quick Start
 
-There are several ways of editing your application.
+1. **Fork this repository**
+2. **Enable GitHub Pages**
+   - Go to Settings → Pages
+   - Select "Deploy from a branch"
+   - Choose `main` branch and `/ (root)` folder
+   - Click Save
+3. **Add your MP3 files**
+   - Create a `/music` folder in your repository
+   - Upload your MP3 files to this folder
+4. **Done!** Visit `https://yourusername.github.io/repo-name`
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- 🎵 Auto-detects MP3 files from `/music` folder via GitHub API
+- 📀 Authentic iPod Classic visual design
+- ▶️ Full playback controls: play/pause, next/prev, seek, volume
+- 🔀 Shuffle and loop modes
+- 💾 Remembers last track and position
+- 📱 Works on desktop and mobile
+- 🚫 No configuration files needed
 
-Changes made via Lovable will be committed automatically to this repo.
+## File Naming
 
-**Use your preferred IDE**
+For best results, name your MP3 files like:
+```
+Artist Name - Song Title.mp3
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+The player will parse this format to show artist and title separately. Files without ` - ` separator will show the filename as the title with "Unknown Artist".
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Local Development
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+For local testing with GitHub API, set these in browser localStorage:
+```javascript
+localStorage.setItem('dev-github-owner', 'yourusername');
+localStorage.setItem('dev-github-repo', 'yourrepo');
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Technical Details
 
-**Use GitHub Codespaces**
+- Pure React + TypeScript
+- Uses GitHub Contents API to list files
+- Caches track list in localStorage (refreshable)
+- No backend required
+- Works entirely client-side
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Rate Limits
 
-## What technologies are used for this project?
+GitHub API has rate limits for unauthenticated requests (60/hour). The player caches the track list to minimize API calls. If rate limited, cached tracks will still play.
 
-This project is built with:
+## License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+MIT

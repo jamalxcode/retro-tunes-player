@@ -1,13 +1,29 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { IPodPlayer } from '@/components/iPod/iPodPlayer';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <main className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200">
+      {/* Subtle pattern overlay */}
+      <div 
+        className="fixed inset-0 opacity-[0.015] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+          backgroundSize: '24px 24px',
+        }}
+      />
+      
+      <div className="relative">
+        <IPodPlayer />
+        
+        {/* Reflection effect */}
+        <div 
+          className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[280px] h-20 rounded-full opacity-10 blur-xl"
+          style={{
+            background: 'linear-gradient(to bottom, hsl(220 10% 50%), transparent)',
+          }}
+        />
       </div>
-    </div>
+    </main>
   );
 };
 
