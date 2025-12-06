@@ -6,6 +6,50 @@ const getCacheKey = () => `ipod-tracks-${window.location.hostname}${window.locat
 const getTimestampKey = () => `${getCacheKey()}-timestamp`;
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
+// Demo tracks for testing (public domain / royalty-free samples)
+const DEMO_TRACKS: Track[] = [
+  {
+    name: 'Chill Vibes - Sunset Dreams.mp3',
+    artist: 'Chill Vibes',
+    title: 'Sunset Dreams',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    path: 'music/Chill Vibes - Sunset Dreams.mp3',
+    albumArt: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=200&h=200&fit=crop',
+  },
+  {
+    name: 'Electronic Beats - Night Drive.mp3',
+    artist: 'Electronic Beats',
+    title: 'Night Drive',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    path: 'music/Electronic Beats - Night Drive.mp3',
+    albumArt: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop',
+  },
+  {
+    name: 'Acoustic Sessions - Morning Coffee.mp3',
+    artist: 'Acoustic Sessions',
+    title: 'Morning Coffee',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    path: 'music/Acoustic Sessions - Morning Coffee.mp3',
+    albumArt: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop',
+  },
+  {
+    name: 'Jazz Quartet - Blue Notes.mp3',
+    artist: 'Jazz Quartet',
+    title: 'Blue Notes',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    path: 'music/Jazz Quartet - Blue Notes.mp3',
+    albumArt: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=200&h=200&fit=crop',
+  },
+  {
+    name: 'Synth Wave - Retro Future.mp3',
+    artist: 'Synth Wave',
+    title: 'Retro Future',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    path: 'music/Synth Wave - Retro Future.mp3',
+    albumArt: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop',
+  },
+];
+
 function parseTrackInfo(filename: string): { artist: string; title: string } {
   // Remove .mp3 extension
   const name = filename.replace(/\.mp3$/i, '');
@@ -108,13 +152,16 @@ export function useGitHubTracks() {
     const repoInfo = getRepoInfo();
     
     if (!repoInfo) {
-      // Not on GitHub Pages - show setup instructions
+      // Not on GitHub Pages - check for cached tracks or use demo mode
       const cached = loadCachedTracks();
       if (cached && cached.length > 0) {
         setTracks(cached);
         setError(null);
       } else {
-        setError('Deploy to GitHub Pages to auto-detect music. Or set dev-github-owner and dev-github-repo in localStorage for testing.');
+        // Use demo tracks for preview/testing
+        console.log('Demo mode: Using sample tracks. Deploy to GitHub Pages for your own music.');
+        setTracks(DEMO_TRACKS);
+        setError(null);
       }
       setLoading(false);
       return;
