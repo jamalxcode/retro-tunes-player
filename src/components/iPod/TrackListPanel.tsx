@@ -45,6 +45,7 @@ export const TrackListPanel: React.FC<TrackListPanelProps> = ({
       {/* Controls */}
       <div className="flex items-center justify-center gap-2 mb-3">
         <button
+          type="button"
           onClick={onToggleShuffle}
           className={`panel-button p-2 rounded-lg ${shuffle ? 'active' : ''}`}
           aria-label="Toggle shuffle"
@@ -53,6 +54,7 @@ export const TrackListPanel: React.FC<TrackListPanelProps> = ({
           <Shuffle size={14} />
         </button>
         <button
+          type="button"
           onClick={onToggleLoop}
           className={`panel-button p-2 rounded-lg ${loop ? 'active' : ''}`}
           aria-label="Toggle loop"
@@ -61,6 +63,7 @@ export const TrackListPanel: React.FC<TrackListPanelProps> = ({
           <Repeat size={14} />
         </button>
         <button
+          type="button"
           onClick={onRefresh}
           className={`panel-button p-2 rounded-lg ${loading ? 'animate-spin' : ''}`}
           aria-label="Refresh tracks"
