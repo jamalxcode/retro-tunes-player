@@ -82,7 +82,7 @@ export const ClickWheel: React.FC<ClickWheelProps> = ({
       </div>
 
       {/* Volume slider */}
-      <div className="flex items-center gap-3 w-full max-w-[180px] px-2">
+      <div className="flex items-center gap-3 w-full max-w-[180px] px-3 py-2 rounded-full bg-muted/50 shadow-[inset_0_1px_3px_rgba(0,0,0,0.1),inset_0_-1px_1px_rgba(255,255,255,0.5)]">
         <Volume2 size={14} className="text-muted-foreground flex-shrink-0" />
         <input
           type="range"
