@@ -21,6 +21,8 @@ export interface PlayerState {
 export interface GitHubFile {
   name: string;
   path: string;
-  download_url: string;
+  download_url: string | null;
   type: string;
+  size?: number;
+  sha?: string;
 }

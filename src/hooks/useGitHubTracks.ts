@@ -208,13 +208,17 @@ export function useGitHubTracks() {
 
       const files: GitHubFile[] = await response.json();
       
+      // Filter for MP3 files with valid download URLs
       const mp3Files = files.filter(
-        (file) => file.type === 'file' && file.name.toLowerCase().endsWith('.mp3')
+        (file) => file.type === 'file' && 
+                  file.name.toLowerCase().endsWith('.mp3') &&
+                  file.download_url !== null
       );
 
-      // Get image files for album art matching
+      // Get image files for album art matching (with valid URLs)
       const imageFiles = files.filter(
         (file) => file.type === 'file' && 
+          file.download_url !== null &&
           (file.name.toLowerCase().endsWith('.jpg') || 
            file.name.toLowerCase().endsWith('.jpeg') || 
            file.name.toLowerCase().endsWith('.png'))
@@ -223,8 +227,10 @@ export function useGitHubTracks() {
       // Create a map of base names to image URLs
       const imageMap = new Map<string, string>();
       imageFiles.forEach((img) => {
-        const baseName = img.name.replace(/\.(jpg|jpeg|png)$/i, '').toLowerCase();
-        imageMap.set(baseName, img.download_url);
+        if (img.download_url) {
+          const baseName = img.name.replace(/\.(jpg|jpeg|png)$/i, '').toLowerCase();
+          imageMap.set(baseName, img.download_url);
+        }
       });
 
       if (mp3Files.length === 0) {
@@ -248,7 +254,7 @@ export function useGitHubTracks() {
           name: file.name,
           artist,
           title,
-          url: file.download_url,
+          url: file.download_url!, // We filtered for non-null above
           path: file.path,
           albumArt,
         };
