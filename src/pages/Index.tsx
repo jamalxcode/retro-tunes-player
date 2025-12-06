@@ -2,7 +2,7 @@ import { IPodPlayer } from '@/components/iPod/iPodPlayer';
 
 const Index = () => {
   return (
-    <main className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200">
+    <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200">
       {/* Subtle pattern overlay */}
       <div 
         className="fixed inset-0 opacity-[0.015] pointer-events-none"
@@ -17,7 +17,7 @@ const Index = () => {
         
         {/* Reflection effect */}
         <div 
-          className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[280px] h-20 rounded-full opacity-10 blur-xl"
+          className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-[500px] h-16 rounded-full opacity-10 blur-xl"
           style={{
             background: 'linear-gradient(to bottom, hsl(220 10% 50%), transparent)',
           }}
