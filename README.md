@@ -2,6 +2,10 @@
 
 A web-based MP3 player styled like a 2007 iPod Classic. Host your music on GitHub Pages with zero configuration.
 
+## Demo Mode
+
+When not deployed to GitHub Pages, the player runs in **demo mode** with sample tracks. Deploy to GitHub Pages to use your own music.
+
 ## Quick Start
 
 ### 1. Fork this repository

@@ -98,10 +98,15 @@ export const TrackListPanel: React.FC<TrackListPanelProps> = ({
                         src={track.albumArt} 
                         alt=""
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          // Hide broken image, show fallback
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                        }}
                       />
-                    ) : (
-                      <Music size={14} className="lcd-text-dim" />
-                    )}
+                    ) : null}
+                    <Music size={14} className={`lcd-text-dim ${track.albumArt ? 'hidden' : ''}`} />
                   </div>
                   
                   {/* Track info */}

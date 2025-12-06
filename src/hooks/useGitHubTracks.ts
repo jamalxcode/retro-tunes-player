@@ -90,8 +90,7 @@ function getRepoInfo(): { owner: string; repo: string } | null {
     }
   }
   
-  // For local development or custom domains
-  // Check for localStorage config first
+  // Check for localStorage config (for local dev or custom domains)
   const devOwner = localStorage.getItem('dev-github-owner');
   const devRepo = localStorage.getItem('dev-github-repo');
   
@@ -99,8 +98,16 @@ function getRepoInfo(): { owner: string; repo: string } | null {
     return { owner: devOwner, repo: devRepo };
   }
 
-  // For Lovable preview or other hosting - show helpful message
+  // Not on GitHub Pages - will use demo mode
   return null;
+}
+
+// Check if we're in demo mode
+function isDemoMode(): boolean {
+  const hostname = window.location.hostname;
+  const hasLocalConfig = localStorage.getItem('dev-github-owner') && localStorage.getItem('dev-github-repo');
+  
+  return !hostname.endsWith('.github.io') && !hasLocalConfig;
 }
 
 export function useGitHubTracks() {
