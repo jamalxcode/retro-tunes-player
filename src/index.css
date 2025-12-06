@@ -10,10 +10,10 @@
     --background: 220 20% 97%;
     --foreground: 220 10% 10%;
 
-    /* iPod body - pearl white with subtle warmth */
-    --ipod-body: 40 30% 98%;
-    --ipod-body-gradient-start: 40 25% 99%;
-    --ipod-body-gradient-end: 40 15% 92%;
+    /* iPod body - silver grey */
+    --ipod-body: 220 8% 88%;
+    --ipod-body-gradient-start: 220 10% 92%;
+    --ipod-body-gradient-end: 220 8% 78%;
     
     /* Chrome bezel */
     --chrome: 220 10% 75%;
@@ -28,8 +28,8 @@
     --screen-highlight: 45 80% 60%;
     
     /* Click wheel */
-    --wheel-bg: 40 20% 96%;
-    --wheel-center: 220 10% 88%;
+    --wheel-bg: 220 8% 92%;
+    --wheel-center: 220 10% 82%;
     --wheel-shadow: 220 20% 70%;
     
     /* Controls */
