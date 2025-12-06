@@ -37,6 +37,7 @@ export const PlaylistMenu: React.FC<PlaylistMenuProps> = ({
           <div className="flex items-center justify-between px-3 py-2 border-b border-white/10">
             <span className="lcd-text text-sm font-medium">Music</span>
             <button 
+              type="button"
               onClick={onClose}
               className="wheel-button p-1 lcd-text-dim hover:lcd-text"
               aria-label="Close menu"
@@ -48,6 +49,7 @@ export const PlaylistMenu: React.FC<PlaylistMenuProps> = ({
           {/* Controls */}
           <div className="flex items-center justify-center gap-4 px-3 py-2 border-b border-white/10">
             <button
+              type="button"
               onClick={onToggleShuffle}
               className={`wheel-button p-1.5 rounded ${shuffle ? 'lcd-text-highlight' : 'lcd-text-dim'}`}
               aria-label="Toggle shuffle"
@@ -56,6 +58,7 @@ export const PlaylistMenu: React.FC<PlaylistMenuProps> = ({
               <Shuffle size={14} />
             </button>
             <button
+              type="button"
               onClick={onToggleLoop}
               className={`wheel-button p-1.5 rounded ${loop ? 'lcd-text-highlight' : 'lcd-text-dim'}`}
               aria-label="Toggle loop"
@@ -64,6 +67,7 @@ export const PlaylistMenu: React.FC<PlaylistMenuProps> = ({
               <Repeat size={14} />
             </button>
             <button
+              type="button"
               onClick={onRefresh}
               className="wheel-button p-1.5 rounded lcd-text-dim hover:lcd-text"
               aria-label="Refresh tracks"
@@ -86,6 +90,7 @@ export const PlaylistMenu: React.FC<PlaylistMenuProps> = ({
               <div className="py-1">
                 {tracks.map((track, index) => (
                   <button
+                    type="button"
                     key={track.path}
                     onClick={() => {
                       onSelectTrack(index);

@@ -88,6 +88,7 @@ export const TrackListPanel: React.FC<TrackListPanelProps> = ({
             <div className="flex-1 overflow-y-auto track-scroll">
               {tracks.map((track, index) => (
                 <button
+                  type="button"
                   key={track.path}
                   onClick={() => onSelectTrack(index)}
                   className={`track-item w-full text-left px-3 py-2 flex items-center gap-3 transition-colors ${
