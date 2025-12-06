@@ -4,22 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>iPod Classic MP3 Player</title>
-    <meta http-equiv="refresh" content="0; url=./" />
     <script>
-      // Single Page App redirect for GitHub Pages
-      // Redirects 404s back to index with the path stored
-      var pathSegmentsToKeep = 1;
-      var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/#/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
+      // GitHub Pages SPA redirect
+      // Converts path to hash for HashRouter compatibility
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+      
+      // Store the attempted URL and redirect to root
+      var loc = window.location;
+      if (loc.pathname !== '/' && !loc.pathname.endsWith('/')) {
+        // For GitHub project pages, keep the repo name in path
+        var pathParts = loc.pathname.split('/').filter(Boolean);
+        var basePath = pathParts.length > 0 ? '/' + pathParts[0] + '/' : '/';
+        sessionStorage.redirect = loc.href;
+        loc.replace(basePath + '#' + loc.pathname.slice(basePath.length) + loc.search + loc.hash);
+      }
     </script>
   </head>
   <body>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=./" />
+    </noscript>
     <p>Redirecting...</p>
   </body>
 </html>

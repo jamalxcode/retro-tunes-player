@@ -68,12 +68,16 @@ export const Screen: React.FC<ScreenProps> = ({
                 {track.albumArt ? (
                   <img 
                     src={track.albumArt} 
-                    alt={`${track.artist} - ${track.title}`}
+                    alt=""
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
                   />
-                ) : (
-                  <Music size={20} className="lcd-text-dim" />
-                )}
+                ) : null}
+                <Music size={20} className={`lcd-text-dim ${track.albumArt ? 'hidden' : ''}`} />
               </div>
               
               {/* Track details */}
