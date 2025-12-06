@@ -142,6 +142,21 @@ export function useGitHubTracks() {
         (file) => file.type === 'file' && file.name.toLowerCase().endsWith('.mp3')
       );
 
+      // Get image files for album art matching
+      const imageFiles = files.filter(
+        (file) => file.type === 'file' && 
+          (file.name.toLowerCase().endsWith('.jpg') || 
+           file.name.toLowerCase().endsWith('.jpeg') || 
+           file.name.toLowerCase().endsWith('.png'))
+      );
+
+      // Create a map of base names to image URLs
+      const imageMap = new Map<string, string>();
+      imageFiles.forEach((img) => {
+        const baseName = img.name.replace(/\.(jpg|jpeg|png)$/i, '').toLowerCase();
+        imageMap.set(baseName, img.download_url);
+      });
+
       if (mp3Files.length === 0) {
         setError('No MP3 files found in /music folder.');
         setLoading(false);
@@ -150,12 +165,22 @@ export function useGitHubTracks() {
 
       const newTracks: Track[] = mp3Files.map((file) => {
         const { artist, title } = parseTrackInfo(file.name);
+        const baseName = file.name.replace(/\.mp3$/i, '').toLowerCase();
+        
+        // Try to find matching album art
+        const albumArt = imageMap.get(baseName) || 
+                        imageMap.get(artist.toLowerCase()) ||
+                        imageMap.get('cover') ||
+                        imageMap.get('album') ||
+                        imageMap.get('folder');
+        
         return {
           name: file.name,
           artist,
           title,
           url: file.download_url,
           path: file.path,
+          albumArt,
         };
       });
 
