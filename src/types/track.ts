@@ -4,6 +4,7 @@ export interface Track {
   title: string;
   url: string;
   path: string;
+  albumArt?: string;
 }
 
 export interface PlayerState {

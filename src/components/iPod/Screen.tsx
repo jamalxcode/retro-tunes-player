@@ -1,5 +1,6 @@
 import React from 'react';
 import { Track } from '@/types/track';
+import { Music } from 'lucide-react';
 
 interface ScreenProps {
   track: Track | null;
@@ -33,7 +34,7 @@ export const Screen: React.FC<ScreenProps> = ({
 
   return (
     <div className="chrome-bezel rounded-lg p-1">
-      <div className="lcd-screen rounded-md px-3 py-2 h-[120px] flex flex-col justify-between">
+      <div className="lcd-screen rounded-md px-3 py-2 h-[140px] flex flex-col justify-between">
         {loading ? (
           <div className="flex-1 flex items-center justify-center">
             <span className="lcd-text text-sm animate-pulse-glow">Loading...</span>
@@ -57,16 +58,32 @@ export const Screen: React.FC<ScreenProps> = ({
                 {shuffle && <span title="Shuffle">⇄</span>}
                 {loop && <span title="Loop">↻</span>}
               </div>
-              <span>iPod</span>
+              <span>Now Playing</span>
             </div>
 
-            {/* Track info */}
-            <div className="flex-1 flex flex-col justify-center overflow-hidden">
-              <div className="lcd-text text-sm font-medium truncate">
-                {track.title}
+            {/* Track info with album art */}
+            <div className="flex-1 flex gap-3 overflow-hidden">
+              {/* Album art */}
+              <div className="w-14 h-14 flex-shrink-0 rounded overflow-hidden bg-black/30 flex items-center justify-center">
+                {track.albumArt ? (
+                  <img 
+                    src={track.albumArt} 
+                    alt={`${track.artist} - ${track.title}`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <Music size={20} className="lcd-text-dim" />
+                )}
               </div>
-              <div className="lcd-text-dim text-xs truncate mt-0.5">
-                {track.artist}
+              
+              {/* Track details */}
+              <div className="flex-1 flex flex-col justify-center min-w-0">
+                <div className="lcd-text text-sm font-medium truncate">
+                  {track.title}
+                </div>
+                <div className="lcd-text-dim text-xs truncate mt-0.5">
+                  {track.artist}
+                </div>
               </div>
             </div>
 
